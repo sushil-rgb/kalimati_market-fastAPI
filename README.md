@@ -1,10 +1,10 @@
-# kalimati_market-fastAPI
+# Kalimati_market-fastAPI
 A fastAPI that scrapes and stores publicly available data from the government website.
 
-# path parameter to add to enpoint url
+# Path parameter to add to enpoint url
 : main_url --> /kalimati_market/en or /kalimati_market/np for english and nepali version respectively:
 
-# 5 url end-point for the individual data
+# Five url end-point for the individual data
 : Likewise, add the following enpoint on the main url from the following end-point variable names
 1> commodity
 2> unit
