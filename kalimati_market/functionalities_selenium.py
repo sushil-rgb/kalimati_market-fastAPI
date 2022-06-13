@@ -112,6 +112,6 @@ def date_header_en():
     for dat in date:
         date_today += dat.find_element(By.TAG_NAME, 'h5').text.strip()
     
-    return date_today  
+    return date_today    
   
 
