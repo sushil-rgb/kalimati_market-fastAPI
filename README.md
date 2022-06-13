@@ -5,7 +5,7 @@ A fastAPI that scrapes and stores publicly available data from the government we
 : main_url --> /kalimati_market/en or /kalimati_market/np for english and nepali version respectively:
 
 # Five url end-point for the individual data
-: Likewise, add the following enpoint on the main url from the following end-point variable names
+Likewise, add the following endpoint on the main url from the variable names below:
 1> commodity
 2> unit
 3> minimum
