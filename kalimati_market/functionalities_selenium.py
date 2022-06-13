@@ -15,15 +15,20 @@ import itertools
 import pandas as pd
 import concurrent.futures
 import random
- 
+import os
 
+   
 headers = {'User-Agent': get_ua()}
 interval = 1
 headless = True
-path = Service('c:\\users\\chromedriver.exe')
+
 opt = Options()
+chrome_options = webdriver.ChromeOptions()
+chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+# path = Service("c:\\users\\chromedriver.exe")
 arguments = ['--headless',  f'user-agent= {get_ua()}',
-             'disable-notifications', "--window-size=1920,1080", "--start-maximized"]
+             'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
+             '--disable-dev-shm-usage', '--no-sandbox']
 
 
  
@@ -35,8 +40,8 @@ else:
         opt.add_argument(arg)
  
 opt.add_experimental_option("detach", True)
-driver = webdriver.Chrome(service=path, options=opt)
-
+# chromedriver_autoinstaller.install()
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
 
 base_url = "https://kalimatimarket.gov.np/"
 
@@ -107,6 +112,6 @@ def date_header_en():
     for dat in date:
         date_today += dat.find_element(By.TAG_NAME, 'h5').text.strip()
     
-    return date_today    
+    return date_today  
   
 
