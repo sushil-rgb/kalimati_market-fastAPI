@@ -8,8 +8,7 @@ app = FastAPI()
 data_kMarket_en = kalimati_market_en()
 
 
-def check_lang(langs, value1, value2):
-    # langs = ""
+def check_lang(langs, value1, value2):    
     if langs == 'en':
         return value1
     elif langs == 'np':
