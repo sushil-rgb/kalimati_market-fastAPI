@@ -16,28 +16,29 @@ def check_lang(langs, value1, value2):
         return value2
     else:
         return {"Details": "Not found",
-                "Try:": "/kalimati_market_en | /kalimati_market/np"}
+                "Try:": "localhost/kalimati_market_en | localhost/kalimati_market/np"}
 
 
 @app.get("/kalimati_market")
 def main_page():
     return {'api-endpoints': [
-                        "/kalimati_market/np",
-                        "/kalimati_market/en",
-                        "/kalimati_market/np/commodity",
-                        "/kalimati_market/np/unit",
-                        "/kalimati_market/np/minimum",
-                        "/kalimati_market/np/maximum",
-                        "/kalimati_market/np/average",
-                        "/kalimati_market/en/commodity",
-                        "/kalimati_market/en/unit",
-                        "/kalimati_market/en/minimum",
-                        "/kalimati_market/en/maximum",
-                        "/kalimati_market/en/average"
-    ]}        
+                        "localhost/kalimati_market/np",
+                        "localhost/kalimati_market/en",
+                        "localhost/kalimati_market/np/commodity",
+                        "localhost/kalimati_market/np/unit",
+                        "localhost/kalimati_market/np/minimum",
+                        "localhost/kalimati_market/np/maximum",
+                        "localhost/kalimati_market/np/average",
+                        "localhost/kalimati_market/en/commodity",
+                        "localhost/kalimati_market/en/unit",
+                        "localhost/kalimati_market/en/minimum",
+                        "localhost/kalimati_market/en/maximum",
+                        "localhost/kalimati_market/en/average"
+    ]
+           }        
 
 
-@app.get("/kalimati_market/{lang}")
+@app.get("localhost/kalimati_market/{lang}")
 def market_now(lang: str):
     return check_lang(lang,
        
@@ -61,7 +62,7 @@ def market_now(lang: str):
             )    
     
 
-@app.get("/kalimati_market/{lang}/commodity")
+@app.get("localhost/kalimati_market/{lang}/commodity")
 def commodity(lang: str):
     return check_lang(lang, {
         date_header_en(): {
@@ -70,7 +71,7 @@ def commodity(lang: str):
             "वस्तु": kalimati_market_np(0)}})
     
 
-@app.get("/kalimati_market/{lang}/unit")
+@app.get("localhost/kalimati_market/{lang}/unit")
 def unit(lang: str):
     return check_lang(lang, {
         date_header_en(): {
@@ -79,7 +80,7 @@ def unit(lang: str):
             "वस्तु": kalimati_market_np(1)}})
 
 
-@app.get("/kalimati_market/{lang}/minimum")
+@app.get("localhost/kalimati_market/{lang}/minimum")
 def minimum(lang: str):
     return check_lang(lang, {
         date_header_en(): {
@@ -88,7 +89,7 @@ def minimum(lang: str):
             "वस्तु": kalimati_market_np(2)}})
 
 
-@app.get("/kalimati_market/{lang}/maximum")
+@app.get("localhost/kalimati_market/{lang}/maximum")
 def maximum(lang: str):
     return check_lang(lang, {
         date_header_en(): {
@@ -97,7 +98,7 @@ def maximum(lang: str):
             "वस्तु": kalimati_market_np(3)}})
 
 
-@app.get("/kalimati_market/{lang}/average")
+@app.get("localhost/kalimati_market/{lang}/average")
 def average(lang: str):
     return check_lang(lang, {
         date_header_en(): {
