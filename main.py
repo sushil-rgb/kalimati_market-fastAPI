@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from fastapi import FastAPI
 from kalimati_market.functionalities_bs4 import kalimati_market_np, date_header_np
 from kalimati_market.functionalities_selenium import kalimati_market_en, date_header_en
