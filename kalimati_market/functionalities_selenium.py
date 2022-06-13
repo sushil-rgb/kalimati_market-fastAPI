@@ -15,7 +15,6 @@ import itertools
 import pandas as pd
 import concurrent.futures
 import random
-import winsound
  
 
 headers = {'User-Agent': get_ua()}
