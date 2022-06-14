@@ -1,6 +1,5 @@
 from time import sleep
 from bs4 import BeautifulSoup
-from pandas import value_counts
 import requests
 import random
 
