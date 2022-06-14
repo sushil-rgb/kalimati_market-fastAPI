@@ -1,4 +1,3 @@
-import json
 from time import sleep
 import requests
 from selenium import webdriver
@@ -11,9 +10,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import StaleElementReferenceException
 from .functionalities_bs4 import get_ua
-import itertools
-import pandas as pd
-import concurrent.futures
 import random
 import os
 
@@ -56,13 +52,6 @@ def flattened_list(lists):
     flat = list(itertools.chain(*lists))
     return flat
  
- 
-# using concurrency (multithreading) features for faster scraping:
-def lightning_scraping(functions, lists):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        executions = executor.map(functions, lists)
-        return executions
-
 
 def automation_kmarket():
     driver.maximize_window()
