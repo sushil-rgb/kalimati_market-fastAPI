@@ -10,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import StaleElementReferenceException
-from functionalities_bs4 import get_ua
+from .functionalities_bs4 import get_ua
 import itertools
 import pandas as pd
 import concurrent.futures
