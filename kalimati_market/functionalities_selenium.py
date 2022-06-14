@@ -41,7 +41,7 @@ else:
  
 opt.add_experimental_option("detach", True)
 
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=opt)
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=opt)
 # driver = webdriver.Chrome(service=path, options=opt)
 
 base_url = "https://kalimatimarket.gov.np/"
