@@ -22,7 +22,6 @@ arguments = ['--headless',  f'user-agent= {get_ua()}',
              'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
              '--disable-dev-shm-usage', '--no-sandbox']
 
-
  
 if headless:
     for arg in arguments:
@@ -87,7 +86,6 @@ def kalimati_market_en():
     
     return commodity_lists, unit_lists, minimum_lists, maximum_lists, average_lists
     
-
 
 def date_header_en():   
     commodity_table = driver.find_element(By.ID, 'commodityDailyPrice').find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
