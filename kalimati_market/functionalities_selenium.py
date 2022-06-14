@@ -10,7 +10,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.common.exceptions import StaleElementReferenceException
-from kalimati_market.functionalities_bs4 import get_ua
+from functionalities_bs4 import get_ua
 import itertools
 import pandas as pd
 import concurrent.futures
@@ -23,8 +23,8 @@ interval = 1
 headless = True
 
 opt = Options()
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+opt = webdriver.ChromeOptions()
+opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # path = Service("c:\\users\\chromedriver.exe")
 arguments = ['--headless',  f'user-agent= {get_ua()}',
              'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
@@ -40,8 +40,9 @@ else:
         opt.add_argument(arg)
  
 opt.add_experimental_option("detach", True)
-# chromedriver_autoinstaller.install()
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=chrome_options)
+
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=opt)
+# driver = webdriver.Chrome(service=path, options=opt)
 
 base_url = "https://kalimatimarket.gov.np/"
 
