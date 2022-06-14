@@ -14,22 +14,12 @@ headers = {'User-Agent': get_ua()}
 interval = 1
 headless = True
 
-opt = Options()
+# opt = Options()
 opt = webdriver.ChromeOptions()
 opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# path = Service("c:\\users\\chromedriver.exe")
-arguments = ['--headless',  f'user-agent= {get_ua()}',
-             'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
-             '--disable-dev-shm-usage', '--no-sandbox']
-
- 
-if headless:
-    for arg in arguments:
-        opt.add_argument(arg)
-else:
-    for arg in arguments[1:]:
-        opt.add_argument(arg)
- 
+opt.add_argument('--headless')
+opt.add_argument('--disable-dev-shm-usage')
+opt.add_argument('--no-sandbox')
 opt.add_experimental_option("detach", True)
 
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=opt)
