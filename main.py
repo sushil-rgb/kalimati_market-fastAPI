@@ -1,6 +1,7 @@
 from fastapi import FastAPI
-from kalimati_market.functionalities_bs4 import kalimati_market_np, date_header_np
-from kalimati_market.functionalities_selenium import kalimati_market_en, date_header_en
+from fastapi.exceptions import HTTPException
+from Kalimati_market.fun_bs4 import kalimati_market_np, date_header_np
+from Kalimati_market.fun_sel import kalimati_market_en, date_header_en
 
 
 app = FastAPI()
@@ -15,32 +16,33 @@ def check_lang(langs, value1, value2):
         return value2
     else:
         return {"Details": "Not found",
-                "Try:": "localhost/kalimati_market_en | localhost/kalimati_market/np"}
+                "Try:": "/kalimati_market_en | /kalimati_market/np"}
 
 
 @app.get("/kalimati_market")
-def main_page():
-    return {'api-endpoints': [
-                        "/kalimati_market/np",
-                        "/kalimati_market/en",
-                        "/kalimati_market/np/commodity",
-                        "/kalimati_market/np/unit",
-                        "/kalimati_market/np/minimum",
-                        "/kalimati_market/np/maximum",
-                        "/kalimati_market/np/average",
-                        "/kalimati_market/en/commodity",
-                        "/kalimati_market/en/unit",
-                        "/kalimati_market/en/minimum",
-                        "/kalimati_market/en/maximum",
-                        "/kalimati_market/en/average"
-    ]
-           }        
+def main_page():    
+        return {'api-endpoints': [
+                            "/kalimati_market/np",
+                            "/kalimati_market/en",
+                            "/kalimati_market/np/commodity",
+                            "/kalimati_market/np/unit",
+                            "/kalimati_market/np/minimum",
+                            "/kalimati_market/np/maximum",
+                            "/kalimati_market/np/average",
+                            "/kalimati_market/en/commodity",
+                            "/kalimati_market/en/unit",
+                            "/kalimati_market/en/minimum",
+                            "/kalimati_market/en/maximum",
+                            "/kalimati_market/en/average"
+        ]}
+
+         
 
 
 @app.get("/kalimati_market/{lang}")
-def market_now(lang: str):
+def market_today(lang: str):
     return check_lang(lang,
-       
+
             {date_header_en(): {
                 "Commodity": data_kMarket_en[0],
                 "Unit": data_kMarket_en[1],
