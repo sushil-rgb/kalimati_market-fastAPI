@@ -1,2 +1,2 @@
 web: python main.py
-web: gunicorn gettingstarted.wsgi
+web: gunicorn kalimati_market-fastapi:main
