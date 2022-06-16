@@ -1,91 +1,109 @@
-from time import sleep
-import requests
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from kalimati_market.fun_bs4 import get_ua
-import random
-import os
-
-   
-headers = {'User-Agent': get_ua()}
-print(headers)
-interval = 1
-
-# opt = Options()
-opt = webdriver.ChromeOptions()
-opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# path = Service("c:\\users\\chromedriver.exe")
-arguments = ['--headless',  f'user-agent= {get_ua()}',
-             'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
-             '--disable-dev-shm-usage', '--no-sandbox']
+from fastapi import FastAPI
+from fastapi.exceptions import HTTPException
+from kalimati_market.fun_bs4 import kalimati_market_np, date_header_np
+from kalimati_market.fun_sel import kalimati_market_en, date_header_en
 
 
-for arg in arguments:
-    opt.add_argument(arg)
+app = FastAPI()
+data_kMarket_en = kalimati_market_en()
 
-opt.add_experimental_option("detach", True)
 
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=opt)
-# driver = webdriver.Chrome(service=path, options=opt)
+def check_lang(langs, value1, value2):
+    # langs = ""
+    if langs == 'en':
+        return value1
+    elif langs == 'np':
+        return value2
+    else:
+        return {"Details": "Not found",
+                "Try:": "/kalimati_market_en | /kalimati_market/np"}
 
-base_url = "https://kalimatimarket.gov.np/"
 
- 
-def check_response(urls):
-    return requests.get(urls)
- 
+@app.get("/kalimati_market")
+def main_page():    
+        return {'api-endpoints': [
+                            "/kalimati_market/np",
+                            "/kalimati_market/en",
+                            "/kalimati_market/np/commodity",
+                            "/kalimati_market/np/unit",
+                            "/kalimati_market/np/minimum",
+                            "/kalimati_market/np/maximum",
+                            "/kalimati_market/np/average",
+                            "/kalimati_market/en/commodity",
+                            "/kalimati_market/en/unit",
+                            "/kalimati_market/en/minimum",
+                            "/kalimati_market/en/maximum",
+                            "/kalimati_market/en/average"
+        ]}
 
-def automation_kmarket():
-    driver.maximize_window()
-    driver.get(base_url)       
-    # automation:
-    driver.find_element(By.XPATH, '//*[@id="demo-swicher"]/header/div[3]/div/div/nav/ul/li[6]/a').click()  # clicks "Click Np Nepali tab""
-    driver.implicitly_wait(10)
-    driver.find_element(By.XPATH, '//*[@id="demo-swicher"]/header/div[3]/div/div/nav/ul/li[6]/ul/li/a').click()  # clicks "GB English"
-    driver.implicitly_wait(10)
-    driver.find_element(By.XPATH, '//*[@id="app"]/main/section[1]/div/div[1]/div/div[3]/div/div/div/div/div/div/a[1]').click()  # clicks check prices tab
-        
+         
 
-def kalimati_market_en():  
-    commodity_lists = []
-    unit_lists = []
-    minimum_lists = []
-    maximum_lists = []
-    average_lists = []  
 
-    automation_kmarket()   
-    
-    for next in range(10):
+@app.get("/kalimati_market/{lang}")
+def market_today(lang: str):
+    return check_lang(lang,
 
-        commodity_table = driver.find_element(By.ID, 'commodityDailyPrice').find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
-            
-        for commodities in commodity_table:
-            datas = commodities.find_elements(By.TAG_NAME, 'td')
-            commodity_lists.append(datas[0].text.strip())
-            unit_lists.append(datas[1].text.strip())
-            minimum_lists.append(datas[2].text.strip())
-            maximum_lists.append(datas[3].text.strip())
-            average_lists.append(datas[4].text.strip())
-            
-        driver.find_element(By.ID, 'commodityDailyPrice_next').click()
-        sleep(interval)
-    
-    return commodity_lists, unit_lists, minimum_lists, maximum_lists, average_lists
+            {date_header_en(): {
+                "Commodity": data_kMarket_en[0],
+                "Unit": data_kMarket_en[1],
+                "Minimum": data_kMarket_en[2],
+                "Maximum": data_kMarket_en[3],
+                "Average": data_kMarket_en[4]
+            }
+            },
+
+            {date_header_np(): {
+                        "वस्तु": kalimati_market_np(0),
+                        "एकाइ": kalimati_market_np(1),
+                        "न्यूनतम": kalimati_market_np(2),
+                        "अधिकतम": kalimati_market_np(3),
+                        "औसत": kalimati_market_np(4)
+                }
+                }
+            )    
     
 
+@app.get("/kalimati_market/{lang}/commodity")
+def commodity(lang: str):
+    return check_lang(lang, {
+        date_header_en(): {
+            "Commodity": data_kMarket_en[0]}}, 
+        {date_header_np():{
+            "वस्तु": kalimati_market_np(0)}})
+    
 
-def date_header_en():   
-    commodity_table = driver.find_element(By.ID, 'commodityDailyPrice').find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
+@app.get("/kalimati_market/{lang}/unit")
+def unit(lang: str):
+    return check_lang(lang, {
+        date_header_en(): {
+            "Commodity": data_kMarket_en[1]}}, 
+        {date_header_np():{
+            "वस्तु": kalimati_market_np(1)}})
 
-    date_today = ""
-    date = driver.find_elements(By.ID, 'commodityPricesDailyTable')
 
-    for dat in date:
-        date_today += dat.find_element(By.TAG_NAME, 'h5').text.strip()
+@app.get("/kalimati_market/{lang}/minimum")
+def minimum(lang: str):
+    return check_lang(lang, {
+        date_header_en(): {
+            "Commodity": data_kMarket_en[2]}}, 
+        {date_header_np():{
+            "वस्तु": kalimati_market_np(2)}})
 
-    return date_today    
-  
+
+@app.get("/kalimati_market/{lang}/maximum")
+def maximum(lang: str):
+    return check_lang(lang, {
+        date_header_en(): {
+            "Commodity": data_kMarket_en[3]}}, 
+        {date_header_np():{
+            "वस्तु": kalimati_market_np(3)}})
+
+
+@app.get("/kalimati_market/{lang}/average")
+def average(lang: str):
+    return check_lang(lang, {
+        date_header_en(): {
+            "Commodity": data_kMarket_en[4]}}, 
+        {date_header_np():{
+            "वस्तु": kalimati_market_np(4)}})
 
