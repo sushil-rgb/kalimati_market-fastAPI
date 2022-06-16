@@ -5,29 +5,30 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from .functionalities_bs4 import get_ua
+from kalimati_market.fun_bs4 import get_ua
 import random
 import os
 
    
 headers = {'User-Agent': get_ua()}
+print(headers)
 interval = 1
-headless = True
 
 # opt = Options()
 opt = webdriver.ChromeOptions()
 opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-
-opt.add_experimental_option("detach", True)
-
+# path = Service("c:\\users\\chromedriver.exe")
 arguments = ['--headless',  f'user-agent= {get_ua()}',
              'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
              '--disable-dev-shm-usage', '--no-sandbox']
 
-for arg in arguments:
-   opt.add_argument(arg)
 
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=opt)
+for arg in arguments:
+    opt.add_argument(arg)
+
+opt.add_experimental_option("detach", True)
+
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=opt)
 # driver = webdriver.Chrome(service=path, options=opt)
 
 base_url = "https://kalimatimarket.gov.np/"
@@ -35,12 +36,6 @@ base_url = "https://kalimatimarket.gov.np/"
  
 def check_response(urls):
     return requests.get(urls)
- 
- 
-# convert multi-dimensional list to single dimensional one:
-def flattened_list(lists):
-    flat = list(itertools.chain(*lists))
-    return flat
  
 
 def automation_kmarket():
@@ -54,8 +49,7 @@ def automation_kmarket():
     driver.find_element(By.XPATH, '//*[@id="app"]/main/section[1]/div/div[1]/div/div[3]/div/div/div/div/div/div/a[1]').click()  # clicks check prices tab
         
 
-def kalimati_market_en():   
-
+def kalimati_market_en():  
     commodity_lists = []
     unit_lists = []
     minimum_lists = []
@@ -82,6 +76,7 @@ def kalimati_market_en():
     return commodity_lists, unit_lists, minimum_lists, maximum_lists, average_lists
     
 
+
 def date_header_en():   
     commodity_table = driver.find_element(By.ID, 'commodityDailyPrice').find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
 
@@ -90,7 +85,7 @@ def date_header_en():
 
     for dat in date:
         date_today += dat.find_element(By.TAG_NAME, 'h5').text.strip()
-    
+
     return date_today    
   
 
