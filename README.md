@@ -11,4 +11,4 @@ Likewise, add the following endpoint on the main url from the variable names bel
 3> minimum
 4> maximum
 5> average
-:: example:> /kalimati_market/en/commodity or /kalimati_market/np
+:: example:> /kalimati_market/en/commodity or /kalimati_market/np/commodity
