@@ -1,3 +1,4 @@
+from time import sleep
 from bs4 import BeautifulSoup
 import requests
 import random
@@ -27,7 +28,7 @@ headers = {'User-Agent': get_ua()}
 
 url = "https://kalimatimarket.gov.np/#commodityPricesDailyTable"
 r = requests.get(url, headers=headers)
-soup = BeautifulSoup(r.content, 'lxml')
+soup = BeautifulSoup(r.content, 'html.parser')
 
 
 def date_header_np():    
