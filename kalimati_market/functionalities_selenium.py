@@ -5,36 +5,28 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from kalimati_market.fun_bs4 import get_ua
+
 import random
 import os
 
    
-headers = {'User-Agent': get_ua()}
+headers = {'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36"}
+
 interval = 1
 
 # opt = Options()
-# opt = webdriver.ChromeOptions()
-# opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+opt = webdriver.ChromeOptions()
+opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # path = Service("c:\\users\\chromedriver.exe")
-# arguments = ['--headless',  f'user-agent= {get_ua()}',
-             'disable-notifications', "--window-size=1920,1080", "--start-maximized", 
-             '--disable-dev-shm-usage', '--no-sandbox']
+
+arguments = ['--no-sandbox', '--headless', 'start-maximized', "disable-infobars", "--disable-extensions","--disable-gpu",
+             '--disable-dev-shm-usage', headers]
 
 
-chrome_options = webdriver.ChromeOptions()
-chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("disable-notifications")
-chrome_options.add_argument("--start-maximized")
-chrome_options.add_argument('--window-size=1929,1080')
-opt.add_experimental_option("detach", True)
-driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options
+for arg in arguments:
+    opt.add_argument(opt.add_experimental_option("detach", True))
 
-
-
+driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=opt)
 # driver = webdriver.Chrome(service=path, options=opt)
 
 base_url = "https://kalimatimarket.gov.np/"
@@ -43,7 +35,7 @@ base_url = "https://kalimatimarket.gov.np/"
 def check_response(urls):
     return requests.get(urls)
  
-
+ 
 def automation_kmarket():
     driver.maximize_window()
     driver.get(base_url)       
@@ -55,7 +47,8 @@ def automation_kmarket():
     driver.find_element(By.XPATH, '//*[@id="app"]/main/section[1]/div/div[1]/div/div[3]/div/div/div/div/div/div/a[1]').click()  # clicks check prices tab
         
 
-def kalimati_market_en():  
+def kalimati_market_en():   
+
     commodity_lists = []
     unit_lists = []
     minimum_lists = []
@@ -77,7 +70,7 @@ def kalimati_market_en():
             average_lists.append(datas[4].text.strip())
             
         driver.find_element(By.ID, 'commodityDailyPrice_next').click()
-        # sleep(interval)
+        sleep(interval)
     
     return commodity_lists, unit_lists, minimum_lists, maximum_lists, average_lists
     
@@ -94,4 +87,6 @@ def date_header_en():
 
     return date_today    
   
+
+
 
