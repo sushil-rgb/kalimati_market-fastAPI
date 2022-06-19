@@ -9,15 +9,13 @@ data_kMarket_en = kalimati_market_en()
 
 @app.get("/kalimati_market")
 def main_page():    
-        return {'api-endpoints': [
-                            
-                            "/kalimati_market,
+        return {'api-endpoints': [                            
+                            "/kalimati_market",                            
                             "/kalimati_market/commodity",
                             "/kalimati_market/unit",
                             "/kalimati_market/minimum",
                             "/kalimati_market/maximum",
                             "/kalimati_market/average",
-                            
         ]}
 
          
@@ -41,32 +39,32 @@ def market_today():
 
 @app.get("/kalimati_market/commodity")
 def commodity():         
-        return {date_header_np():{
-            "वस्तु": kalimati_market_np(0)}}
+        return {date_header_en():{
+            "वस्तु":data_kMarket_en(0)}}
     
 
 @app.get("/kalimati_market/unit")
 def unit():
-    return {date_header_np():{
-            "वस्तु": kalimati_market_np(1)}}
+    return {date_header_en():{
+            "वस्तु": data_kMarket_en(1)}}
 
 
 @app.get("/kalimati_market/minimum")
 def minimum():   
-        return {date_header_np():{
-            "वस्तु": kalimati_market_np(2)}}
+        return {date_header_en():{
+            "वस्तु": data_kMarket_en(2)}}
 
 
 @app.get("/kalimati_market/maximum")
 def maximum():
    
-        return {date_header_np():{
-            "वस्तु": kalimati_market_np(3)}}
+        return {date_header_en():{
+            "वस्तु": data_kMarket_en(3)}}
 
 
 @app.get("/kalimati_market/average")
 def average():   
          
-        return {date_header_np():{
-            "वस्तु": kalimati_market_np(4)}}
+        return {date_header_en():{
+            "वस्तु": data_kMarket_en(4)}}
 
