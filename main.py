@@ -22,11 +22,12 @@ opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # path = Service("c:\\users\\chromedriver.exe")
 
 arguments = ['--no-sandbox', '--headless', 'start-maximized', "disable-infobars", "--disable-extensions","--disable-gpu",
-             '--disable-dev-shm-usage', headers]
+             '--disable-dev-shm-usage']
+
 
 
 for arg in arguments:
-    opt.add_argument(opt.add_experimental_option("detach", True))
+    opt.add_argument(arg)
 
 driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=opt)
 # driver = webdriver.Chrome(service=path, options=opt)
@@ -58,7 +59,7 @@ def kalimati_market_en():
     average_lists = []  
 
     automation_kmarket()   
-    
+    opt.add_experimental_option("detach", True)
     for next in range(10):
 
         commodity_table = driver.find_element(By.ID, 'commodityDailyPrice').find_element(By.TAG_NAME, 'tbody').find_elements(By.TAG_NAME, 'tr')
