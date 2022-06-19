@@ -1,3 +1,4 @@
+from lib2to3.pgen2.token import OP
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 from time import sleep
@@ -21,10 +22,11 @@ opt = webdriver.ChromeOptions()
 opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 # path = Service("c:\\users\\chromedriver.exe")
 
+opt = Options()
+# path = Service("c:\\users\\chromedriver.exe")
+opt.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 arguments = ['--no-sandbox', '--headless', 'start-maximized', "disable-infobars", "--disable-extensions","--disable-gpu",
              '--disable-dev-shm-usage']
-
-
 
 for arg in arguments:
     opt.add_argument(arg)
