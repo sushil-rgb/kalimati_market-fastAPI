@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
-from kalimati_market.functionalities_sel import kalimati_market_en, date_header_en
+from functionalities_sel import kalimati_market_en, date_header_en
 
 
 app = FastAPI()
