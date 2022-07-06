@@ -1,5 +1,5 @@
 # Kalimati_market-fastAPI
-A fastAPI that scrapes and stores publicly available data from the government website.
+A fastAPI that scrapes and stores publicly available data from the government website using Selenium for automation and scraping.
 
 # Path parameter to add to enpoint url
 : main_url --> /kalimati_market/en or /kalimati_market/np for english and nepali version respectively:
